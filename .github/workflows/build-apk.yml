@@ -55,8 +55,7 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            APK=app/build/outputs/apk/debug/app-debug.apk
-            adb install -r "$APK"
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb shell am start -W -n com.maksolutions.trueaqua/.MainActivity
             sleep 5
             adb shell pidof com.maksolutions.trueaqua
