@@ -1,0 +1,23 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.maksolutions.trueaqua'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.maksolutions.trueaqua'
+        minSdk 26
+        targetSdk 35
+        versionCode 4
+        versionName '1.3'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies { implementation 'androidx.core:core:1.15.0' }
