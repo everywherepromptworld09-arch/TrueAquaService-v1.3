@@ -1,0 +1,7 @@
+package com.maksolutions.trueaqua;
+import android.app.*;import android.content.*;import android.os.Build;
+public class ReminderReceiver extends BroadcastReceiver{
+  private static final String CH="tas_service";
+  public static void createChannel(Context c){if(Build.VERSION.SDK_INT>=26){NotificationManager n=(NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);NotificationChannel ch=new NotificationChannel(CH,"Service Reminders",NotificationManager.IMPORTANCE_HIGH);n.createNotificationChannel(ch);}}
+  @Override public void onReceive(Context c,Intent i){createChannel(c);String t=i.getStringExtra("title");String x=i.getStringExtra("text");Intent o=c.getPackageManager().getLaunchIntentForPackage(c.getPackageName());PendingIntent p=PendingIntent.getActivity(c,0,o,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);Notification.Builder b=Build.VERSION.SDK_INT>=26?new Notification.Builder(c,CH):new Notification.Builder(c);b.setSmallIcon(android.R.drawable.ic_popup_reminder).setContentTitle(t==null?"TRUE AQUA SERVICE":t).setContentText(x==null?"Service due":x).setAutoCancel(true).setContentIntent(p);((NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE)).notify((int)(System.currentTimeMillis()%100000),b.build());}
+}
