@@ -40,6 +40,27 @@ jobs:
           grep -q "package: name='com.maksolutions.trueaqua'" apk-badging.txt
           grep -q "versionName='1.3'" apk-badging.txt
           ls -lh "$APK"
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Emulator install and launch test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: |
+            APK=app/build/outputs/apk/debug/app-debug.apk
+            adb install -r "$APK"
+            adb shell am start -W -n com.maksolutions.trueaqua/.MainActivity
+            sleep 5
+            adb shell pidof com.maksolutions.trueaqua
+            adb shell dumpsys package com.maksolutions.trueaqua | grep versionName
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
