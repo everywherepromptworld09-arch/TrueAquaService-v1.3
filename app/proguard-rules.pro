@@ -1,0 +1,1 @@
+-keepclassmembers class com.maksolutions.trueaqua.MainActivity$AndroidBridge { public *; }
