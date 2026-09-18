@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
   private MediaRecorder recorder;
   private MediaPlayer player;
   private File voiceFile;
-  private static final String ACTIVATION_HASH="79a60928316af11cd952457d9e857f334ebac22c09ed1d3d1298324013033db7";
+  private static final String ACTIVATION_HASH="63b9c9c748c24918be21918ab5b8a47337296f58c43ebc8e66fc90d6c20cb819";
 
   @Override public void onCreate(Bundle b){
     super.onCreate(b);
